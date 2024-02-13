@@ -103,6 +103,7 @@ gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
 ```
 gmx mdrun -v -deffnm em
 ```
+```-nb gpu```
 (about 700-800 steps)
 ```
 printf "0 & ! a H*\nq\n" | gmx make_ndx -f LIG.gro -o index_LIG.ndx
@@ -133,6 +134,7 @@ gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -n index.ndx -o nvt.tpr
 ```
 gmx mdrun -v -deffnm nvt
 ```
+```-nb gpu```
 (50,000 steps)
 
 ~~gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx -o npt.tpr~~
@@ -143,6 +145,7 @@ gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx
 ```
 gmx mdrun -v -deffnm npt
 ```
+```-nb gpu```
 (50,000 steps)
 
 ```
@@ -151,6 +154,7 @@ gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -n index.ndx -o md_0_10.
 ```
 gmx mdrun -v -deffnm md_0_10
 ```
+```-nb gpu```
 (5,000,000 steps = 10,000 ps = 10ns)
 
 ## MD Analysis
