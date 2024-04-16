@@ -2,17 +2,15 @@
 
 ## Requirements
 - Ubuntu 22.04.3 LTS (Download from microsoft store or dual boot) [☞Tutorial](https://youtu.be/RQKp_RA_y2k)
-- [Gromacs](https://manual.gromacs.org/documentation/current/download.html) 2023.3 [☞Tutorial](https://youtu.be/JzavO2jt7Pk)
+- [Gromacs](https://manual.gromacs.org/documentation/current/download.html) 2023.3 [☞Tutorial](https://github.com/sabbir-21/gmx/blob/main/gmx-install.md)
 - [Chimera](https://www.cgl.ucsf.edu/chimera/download.html)
 - [Discovery Studio](https://discover.3ds.com/discovery-studio-visualizer-download)
 - [Swiss Pdb viewer](https://spdbv.unil.ch/download/binaries/SPDBV_4.10_PC.zip)
-- [Notepad++](https://notepad-plus-plus.org/downloads/)
+- [Gedit](```sudo apt install gedit -y```)
 
 ## Installation
-### CUDA 11.6 or higher
-```
-https://developer.nvidia.com/cuda-downloads
-```
+### CUDA 11.8 or higher
+```https://developer.nvidia.com/cuda-downloads```
 CUDA 11.3, 11.5 - 11.6.1 is not compatible
 
 For CUDA 12.3.2
@@ -66,7 +64,7 @@ gcc --version
 g++ --version
 ```
 
-### Gromacs Installation
+### Gromacs Installation from source in GPU
 
 ```
 wget ftp://ftp.gromacs.org/gromacs/gromacs-2023.3.tar.gz
@@ -97,4 +95,19 @@ sudo make install
 ```
 ```
 source /usr/local/gromacs/bin/GMXRC
+```
+
+### Gromacs Installation by CONDA in CPU + gmx_MMPBSA
+
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash Miniconda3-latest-Linux-x86_64.sh -b -u -p ~/miniconda3
+```
+
+Go to $Home directory /home/user/ and add ```export PATH=/home/user/miniconda3/bin:$PATH``` in the last line of .bashrc file
+
+```
+conda env create -n gmxMMPBSA --file env.yml
+conda init
+conda activate gmxMMPBSA
 ```
