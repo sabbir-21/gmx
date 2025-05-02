@@ -75,7 +75,7 @@ LIG		    1
 ```
 - Add ```#include "LIG.itp"``` just below the ```#include "charmm27.ff/forcefield.itp"```
 
-eg: it might be in 23 line
+eg: it might be in 22 line
 ```
 ; Include forcefield parameters
 #include "charmm27.ff/forcefield.itp"
@@ -88,10 +88,17 @@ gmx editconf -f REC_processed.gro -o newbox.gro -bt dodecahedron -d 1.0
 ```
 gmx solvate -cp newbox.gro -cs spc216.gro -p topol.top -o solv.gro
 ```
+
+Check the topol.top file whether the ```SOL     1``` is in the last line or not. if not ,correct it.
+ Must check LIG.itp, search for 
+```
+[ moleculetype ]
+; Name nrexcl 
+LIG86 3
+```
 ```
 gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
 ```
-Check the topol.top file whether the ```SOL     1``` is in the last line or not. if not ,correct it.
 ```
 gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral
 ```
