@@ -53,6 +53,7 @@ to check which files are in a folder give ls command
 ```
 source /usr/local/gromacs/bin/GMXRC
 ```
+1
 ```
 gmx pdb2gmx -f REC.pdb -o REC_processed.gro
 ```
@@ -60,15 +61,18 @@ gmx pdb2gmx -f REC.pdb -o REC_processed.gro
 - Select group: 1
 
 ### Ligand topology Generation
+2
 ```
 gmx editconf -f LIG.pdb -o LIG.gro
 ```
+2(a)
 - Open ```LIG.gro``` and ```REC_processed.gro``` in npp++
 
 - Copy the coordinates from ```LIG.gro``` (all 1LIG sections) to ```REC_processed.gro``` before the last line and fix the allignment of the first line of 1LIG section
 
 - Observe the line number before the last line and substruct 2 from it and place it to the second line eg: the line before the last line is 2314 ,the line becomes 2312. replace it in the second line.
 
+2(b)
 - Open ```topol.top``` > go to last line and add
 ```
 LIG		    1
@@ -82,9 +86,11 @@ eg: it might be in 22 line
 #include "LIG.itp"
 ```
 ### Define box and solvate 
+3
 ```
 gmx editconf -f REC_processed.gro -o newbox.gro -bt dodecahedron -d 1.0
 ```
+4
 ```
 gmx solvate -cp newbox.gro -cs spc216.gro -p topol.top -o solv.gro
 ```
@@ -94,26 +100,34 @@ Check the topol.top file whether the ```SOL     1``` is in the last line or not.
 ```
 [ moleculetype ]
 ; Name nrexcl 
-LIG86 3
+LIG 3
 ```
+it should show `LIG 3`
+
+5
 ```
 gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
 ```
+6
 ```
 gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral
 ```
 - Select group: 15 (SOL)
 
-- Check the ```topol.top``` file whether the CL  is in the last line or not. If not, correct it.
+- Check the ```topol.top``` file whether the CL / Na  is in the last line or not. If not, correct it.
 
 ### Energy minimization
+7
 ```
 gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
 ```
+8
 ```
 gmx mdrun -v -deffnm em
 ```
 (about 700-800 steps)
+
+9
 ```
 gmx make_ndx -f LIG.gro -o index_LIG.ndx
 ```
@@ -125,6 +139,7 @@ q
 ```
 - Go to ```topol.top``` add some line before ```; Include water topology```
 
+9(a)
 eg:
 ```
 ; Ligand position restraints
@@ -132,6 +147,7 @@ eg:
 #include "posre_LIG.itp"
 #endif
 ```
+10
 ```
 gmx genrestr -f LIG.gro -n index_LIG.ndx -o posre_LIG.itp -fc 1000 1000 1000
 ```
@@ -139,6 +155,8 @@ gmx genrestr -f LIG.gro -n index_LIG.ndx -o posre_LIG.itp -fc 1000 1000 1000
 
 
 ### Equilibration step
+11
+
 ```
 gmx make_ndx -f em.gro -o index.ndx
 ```
@@ -148,9 +166,11 @@ gmx make_ndx -f em.gro -o index.ndx
 ```
 q
 ```
+12
 ```
 gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -n index.ndx -o nvt.tpr
 ```
+13
 ```
 gmx mdrun -v -deffnm nvt
 ```
@@ -158,19 +178,24 @@ gmx mdrun -v -deffnm nvt
 
 ~~gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx -o npt.tpr~~
 
+14
+
 ```
 gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx -o npt.tpr -maxwarn 1
 ```
+15
 ```
 gmx mdrun -v -deffnm npt
 ```
 (50,000 steps)
 
+16
 ```
 gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -n index.ndx -o md_0_10.tpr
 ```
+17
 ```
-gmx mdrun -v -deffnm md_0_10
+gmx mdrun -v -deffnm md_0_10 -nsteps <steps>
 ```
 (5,000,000 steps = 10,000 ps = 10ns)
 
