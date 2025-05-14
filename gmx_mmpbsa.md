@@ -10,6 +10,10 @@ index.ndx
 
 topol.top
 
+LIG.itp
+
+topol_Protein_chain_A.itp
+
 ## MMPBSA input creation
 
 For All calculation

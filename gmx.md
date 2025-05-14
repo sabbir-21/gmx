@@ -48,8 +48,9 @@ If error occurs in parametizing in swiss param,
 - Then again follow the Parameterization step again
 
 ## MD Simulation
-- Paste the 5 common files ions.mdp, em.mdp, npt.mdp, nvt.mdp, md.mdp. Download from [Here](https://github.com/sabbir-21/gmx/releases/download/v1.0/main.zip)
+- Paste the 5 common files `ions.mdp`, `em.mdp`, `npt.mdp`, `nvt.mdp`, `md.mdp`. Download from [Here](https://github.com/sabbir-21/gmx/releases/download/v1.0/main.zip)
 
+- Files: `REC.pdb`, `LIG.pdb`, `LIG.itp`
 
 ### Receptor Topology Generation
 - Open ubuntu > Go to working directory 
