@@ -135,7 +135,7 @@ gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
 ```
 # 8
 ```
-gmx mdrun -v -deffnm em
+gmx mdrun -v -deffnm em -nb gpu
 ```
 (about 700-800 steps)
 
@@ -185,7 +185,7 @@ gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -n index.ndx -o nvt.tpr
 ```
 # 13
 ```
-gmx mdrun -v -deffnm nvt
+gmx mdrun -v -deffnm nvt -nb gpu
 ```
 (50,000 steps)
 
@@ -198,7 +198,7 @@ gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -n index.ndx
 ```
 # 15
 ```
-gmx mdrun -v -deffnm npt
+gmx mdrun -v -deffnm npt -nb gpu
 ```
 (50,000 steps)
 
@@ -208,7 +208,7 @@ gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -n index.ndx -o md_0_10.
 ```
 # 17
 ```
-gmx mdrun -v -deffnm md_0_10 -nsteps <steps>
+gmx mdrun -v -deffnm md_0_10 -nsteps 50000000 -nb gpu
 ```
 (5,000,000 steps = 10,000 ps = 10ns)
 
