@@ -183,3 +183,8 @@ printf "Backbone\n" | gmx gyrate -s em.tpr -f md_0_10_center.xtc -n index.ndx -o
 ```
 printf "Protein\nLIG\n" | gmx hbond -s em.tpr -f md_0_10_center.xtc -n index.ndx -num Hbond.xvg
 ```
+# Extend MDS from cpt
+```
+gmx mdrun -v -deffnm md_0_10 -nb gpu -cpi md_0_10.cpt -nsteps 50000000
+```
+extend more 100ns

@@ -245,3 +245,9 @@ gmx hbond -s em.tpr -f md_0_10_center.xtc -n index.ndx -num Hbond.xvg
 ```
 - Select group: 1 (Protein)
 - Select group: 13 (LIG)
+
+# Extend MDS from cpt
+```
+gmx mdrun -v -deffnm md_0_10 -nb gpu -cpi md_0_10.cpt -nsteps 50000000
+```
+extend more 100ns
